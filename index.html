@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite App</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <div id="app"></div>
+  <div id="occlusion-controls">
+    Spheres: <span id="num-spheres"></span><br> Culled spheres: <span id="num-invisible-spheres"></span><br>Vertices: <span id="num-vertices"></span>
+  </div>
+  <script type="x-shader/vs" id="vertex-boundingBox">#version 300 es
+    layout(std140, column_major) uniform;
+    layout(location=0) in vec4 position;
+    uniform mat4 uModel;
+    uniform mat4 uViewProj;
+    void main() {
+      gl_Position = uViewProj * uModel * position;
+    }
+    </script>
+    <script type="x-shader/vf" id="fragment-boundingBox">#version 300 es
+    precision highp float;
+    layout(std140, column_major) uniform;
+    out vec4 fragColor;
+    void main() {
+      fragColor = vec4(1.0, 1.0, 1.0, 1.0);
+    }
+    </script>
+  <script type="module" src="/main.js"></script>
+
+
+</body>
+
+</html>
